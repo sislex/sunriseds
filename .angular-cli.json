@@ -20,6 +20,7 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
         "./assets/tpl/css/style.css",
         "./assets/tpl/css/responsive.css",
         "./assets/tpl/css/colors/color-12.css",
