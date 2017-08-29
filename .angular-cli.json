@@ -21,6 +21,8 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "./assets/tpl/css/style.css",
+        "./assets/tpl/css/responsive.css",
+        "./assets/tpl/css/colors/color-12.css",
         "styles.css"
       ],
       "scripts": [
