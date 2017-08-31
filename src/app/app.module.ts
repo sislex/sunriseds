@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/header/header.component';
@@ -14,6 +15,10 @@ import { TeamComponent } from './components/team/team.component';
 import { TeamDetailsComponent } from './components/team-details/team-details.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { PartnersComponent } from './components/partners/partners.component';
+import {UsersService} from './services/users.service';
+import {RequestsService} from './services/requests.service';
+import {HttpClientModule} from '@angular/common/http';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 @NgModule({
     declarations: [
@@ -28,13 +33,19 @@ import { PartnersComponent } from './components/partners/partners.component';
         TeamComponent,
         TeamDetailsComponent,
         ProjectsComponent,
-        PartnersComponent
+        PartnersComponent,
+        AdminPanelComponent
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule
+        FormsModule,
+        AppRoutingModule,
+        HttpClientModule
     ],
-    providers: [],
+    providers: [
+        UsersService,
+        RequestsService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

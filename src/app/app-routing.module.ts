@@ -6,6 +6,7 @@ import {AboutComponent} from './components/about/about.component';
 import {TeamComponent} from './components/team/team.component';
 import {TeamDetailsComponent} from './components/team-details/team-details.component';
 import {ProjectsComponent} from "./components/projects/projects.component";
+import {AdminPanelComponent} from "./components/admin-panel/admin-panel.component";
 
 const ROUTES = [
     {path: '', component: HomeComponent},
@@ -14,6 +15,7 @@ const ROUTES = [
     {path: 'about', component: AboutComponent},
     {path: 'team', component: TeamComponent},
     {path: 'team-details', component: TeamDetailsComponent},
+    {path: 'admin', component: AdminPanelComponent},
     {path: '**', component: HomeComponent}
 ];
 
