@@ -14,7 +14,7 @@ const ROUTES = [
     {path: 'contacts', component: ContactsComponent},
     {path: 'about', component: AboutComponent},
     {path: 'team', component: TeamComponent},
-    {path: 'team-details', component: TeamDetailsComponent},
+    {path: 'team-details/:id', component: TeamDetailsComponent},
     {path: 'admin', component: AdminPanelComponent},
     {path: '**', component: HomeComponent}
 ];

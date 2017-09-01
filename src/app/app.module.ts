@@ -19,6 +19,7 @@ import {UsersService} from './services/users.service';
 import {RequestsService} from './services/requests.service';
 import {HttpClientModule} from '@angular/common/http';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import {StorageService} from './services/storage.service';
 
 @NgModule({
     declarations: [
@@ -44,7 +45,8 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
     ],
     providers: [
         UsersService,
-        RequestsService
+        RequestsService,
+        StorageService
     ],
     bootstrap: [AppComponent]
 })

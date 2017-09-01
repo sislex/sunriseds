@@ -13,7 +13,7 @@
       <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="ulockd-team-member">
           <div class="team-thumb">
-            <img class="img-responsive img-whp" src="assets/images/team1.jpg" alt="team1.jpg">
+            <img class="img-responsive img-whp" src="{{activeEmployee.image}}" alt="{{activeEmployee.image}}">
             <div class="team-overlay">
               <ul class="list-inline team-icon style2">
                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -25,9 +25,8 @@
             </div>
           </div>
           <div class="team-details text-left">
-            <h3 class="member-name">John Smith</h3>
-            <h5 class="member-post">- CEO Founder</h5>
-            <img class="img-responsive img-whp" src="images/team/signeture.gif" alt="signeture.gif">
+            <h3 class="member-name">{{activeEmployee.firstName}} {{activeEmployee.lastName}}</h3>
+            <h5 class="member-post">{{activeEmployee.position}}</h5>
           </div>
         </div>
       </div>
@@ -35,7 +34,7 @@
         <div class="thumbnail">
           <div class="caption">
             <ul class="list-unstyled ulockd-pesonar-info">
-              <li><strong>Name :</strong> John Smith.</li>
+              <li><strong>Name :</strong> {{activeEmployee.firstName}} {{activeEmployee.lastName}}</li>
               <li><strong>Profession :</strong> Tempora impedit pariatur sapiente sit distinctio.</li>
               <li><strong>Graduation :</strong> PhD in Medical Science University of Surrey 1998.</li>
               <li><strong>Experience :</strong> 18 Year Working experience in bMax  Non-Profit Organization.</li>
@@ -253,7 +252,7 @@
             <div class="media">
               <div class="media-left pull-left">
                 <a href="#">
-                  <img class="media-object thumbnail" src="images/testimonial/1.jpg" alt="1.jpg">
+                  <img class="media-object thumbnail" src="assets/images/1.jpg" alt="1.jpg">
                 </a>
               </div>
               <div class="media-body">
@@ -266,7 +265,7 @@
             <div class="media">
               <div class="media-left pull-left">
                 <a href="#">
-                  <img class="media-object thumbnail" src="images/testimonial/2.jpg" alt="2.jpg">
+                  <img class="media-object thumbnail" src="assets/images/2.jpg" alt="2.jpg">
                 </a>
               </div>
               <div class="media-body">

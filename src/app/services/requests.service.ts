@@ -10,5 +10,9 @@ export class RequestsService {
     public getUsersJson() {
         return this.httpClient.get('http://localhost:4200/assets/json/users.json');
     }
+    
+    public getTeamJson() {
+        return this.httpClient.get('http://localhost:4200/assets/json/team.json');
+    }
 
 }
