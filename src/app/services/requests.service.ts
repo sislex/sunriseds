@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class RequestsService {
@@ -8,11 +8,11 @@ export class RequestsService {
     }
     
     public getUsersJson() {
-        return this.httpClient.get('http://localhost:4200/assets/json/users.json');
+        return this.httpClient.get('http://sunrisapi/?type=users&action=get');
     }
     
     public getTeamJson() {
-        return this.httpClient.get('http://localhost:4200/assets/json/team.json');
+        return this.httpClient.get('http://sunrisapi/?type=team&action=get');
     }
 
 }

@@ -8,42 +8,58 @@ import {DomSanitizer} from '@angular/platform-browser';
     styleUrls: ['./admin-panel.component.scss']
 })
 export class AdminPanelComponent implements OnInit {
-    public id;
-    public firstName;
-    public lastName;
-    public sity;
-    public image;
-    public position;
-    public technologies;
+    // public teamClone = JSON.parse(JSON.stringify(this.storageService.team));
+    public employeeClone = null;
+    public activeEmployee;
 
     constructor(
         private storageService: StorageService,
         public domSanitizer: DomSanitizer
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
     }
 
     public editingEmployee(employee) {
-        this.id = employee.id;
-        this.firstName = employee.firstName;
-        this.lastName = employee.lastName;
-        this.sity = employee.sity;
-        this.image = employee.image;
-        this.position = employee.position;
-        this.technologies = employee.technologies;
-        console.log(employee);
+        console.log(this.storageService.team);
+        this.employeeClone = JSON.parse(JSON.stringify(employee));
+        this.activeEmployee = JSON.parse(JSON.stringify(employee));
     }
 
     public getFileName(event) {
         let file = event.target.files[0];
-        this.image = this.domSanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
+        this.employeeClone.image = this.domSanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
     }
 
     public getColor(event, name) {
         const color = document.getElementById(name);
         color.style.backgroundColor = event.target.value;
+    }
+
+    public deliteTechnology(technology) {
+        const technologies = [];
+        for (const item of this.employeeClone.technologies) {
+            if (technology.name !== item.name) {
+                technologies.push(item);
+            }
+        }
+        this.employeeClone.technologies = technologies;
+    }
+    public addTechnology() {
+        this.employeeClone.technologies.push({
+            name: '',
+            experience: '',
+            ico: '',
+            color: ''
+        });
+    }
+    public saveChanges() {
+        for (let employee in this.storageService.team) {
+            if(this.storageService.team[employee].firstName === this.activeEmployee.firstName) {
+                this.storageService.team[employee] = this.employeeClone;
+                break;
+            }
+        }
     }
 
 }
