@@ -63,7 +63,7 @@
                     <h2 class="sub-header">Specializations</h2>
                 </div>
                 <div class="col-xs-12 col-sm-4">
-                    <button class="btn btn-success form-control" (click)="addEmployee()"  data-toggle="modal" data-target="#employee">
+                    <button class="btn btn-success form-control" (click)="addSpecialization()"  data-toggle="modal" data-target="#specialization">
                         Add specializations
                     </button>
                 </div>
@@ -254,25 +254,25 @@
                     <div class="col-sm-12 text-center">
                         <div>
                             <div class="input-group form-group">
-                                <label for="{{specializationClone.name}}" class="input-group-addon">Specialization</label>
-                                <input name="{{specializationClone.name}}" id="{{specializationClone.name}}" type="text" class="form-control"
+                                <label for="specializationName" class="input-group-addon">Specialization</label>
+                                <input name="specializationName" id="specializationName" type="text" class="form-control"
                                        placeholder="Specialization name" [(ngModel)]="specializationClone.name">
                             </div>
                             <div class="input-group form-group">
-                                <label for="{{specializationClone.ico}}" class="input-group-addon">Specialization ico</label>
-                                <input name="{{specializationClone.ico}}" id="{{specializationClone.ico}}" type="text" class="form-control"
+                                <label for="specializationIco" class="input-group-addon">Specialization ico</label>
+                                <input name="specializationIco" id="specializationIco" type="text" class="form-control"
                                        placeholder="Specialization ico" [(ngModel)]="specializationClone.ico">
                             </div>
                             <div class="input-group form-group">
-                                <label for="{{specializationClone.color}}" class="input-group-addon">Color</label>
-                                <input name="{{specializationClone.color}}" id="{{specializationClone.color}}" type="color"
+                                <label for="specializationColor" class="input-group-addon">Color</label>
+                                <input name="specializationColor" id="specializationColor" type="color"
                                        class="form-control" placeholder="Color" [(ngModel)]="specializationClone.color"
                                        [style.backgroundColor]="specializationClone.color"
                                        (change)="getColor($event, specializationClone.color)">
                             </div>
                             <div class="input-group form-group">
                                 <label for="display" class="input-group-addon">Specialization display</label>
-                                <input name="{{specializationClone.color}}" id="display" type="checkbox"
+                                <input name="display" id="display" type="checkbox"
                                        class="form-control" [(ngModel)]="specializationClone.display">
                             </div>
                         </div>

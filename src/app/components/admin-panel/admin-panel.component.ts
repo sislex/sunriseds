@@ -105,4 +105,24 @@ export class AdminPanelComponent implements OnInit {
         }
     }
     
+    public addSpecialization() {
+        const newSpecialization = {
+            name: '',
+            ico: '',
+            color: '',
+            display: ''
+        };
+        this.storageService.specializations.push(newSpecialization);
+        this.editingSpecialization(newSpecialization);
+    }
+    public delSpecialization(specializationDel) {
+        const mass = [];
+        for (const specialization of this.storageService.specializations) {
+            if(specialization !== specializationDel) {
+                mass.push(specialization);
+            }
+        }
+        this.storageService.specializations = mass;
+    }
+    
 }
