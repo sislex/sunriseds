@@ -6,9 +6,11 @@ import {Observable} from 'rxjs/Rx';
 export class StorageService {
     public teamObservable: Observable<any>;
     public team = [];
+    public specializations = [];
 
     constructor(private requestsService: RequestsService) {
         this.getTeam();
+        this.getSpecializations();
     }
 
     public getTeam() {
@@ -16,6 +18,12 @@ export class StorageService {
             this.teamObservable.subscribe((data: any) => {
                 this.team = data;
             });
+    }
+    public getSpecializations() {
+        this.teamObservable = this.requestsService.getSpecializationsJson();
+        this.teamObservable.subscribe((data: any) => {
+            this.specializations = data;
+        });
     }
     
 }
