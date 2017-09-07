@@ -1,0 +1,112 @@
+<!--Specializations-->
+<div class="row form-group">
+    <div class="col-xs-12 col-sm-8">
+        <h2 class="sub-header">Specializations</h2>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        <button class="btn btn-success form-control" (click)="addSpecialization()" data-toggle="modal"
+                data-target="#specialization">
+            Add specializations
+        </button>
+    </div>
+</div>
+<div class="table-responsive" *ngIf="storageService.specializations.length">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>№</th>
+            <th>Specialization</th>
+            <th>Ico</th>
+            <th>Color</th>
+            <th>Display</th>
+            <th>Editing</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let specialization of storageService.specializations; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{specialization.name}}</td>
+            <td>{{specialization.ico}}</td>
+            <td>{{specialization.color}}</td>
+            <td>{{specialization.display}}</td>
+            <td>
+                <div class="btn-toolbar">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" title="Editing" data-toggle="modal"
+                                data-target="#specialization"
+                                (click)="editingSpecialization(specialization)">
+                            Editing
+                        </button>
+                        <button type="button" class="btn btn-secondary text-danger" title="Delite"
+                                (click)="delSpecialization(specialization)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--End specializations-->
+
+<!--Start modal window SPECIALIZATION-->
+<div class="modal fade" id="specialization" tabindex="-1" role="dialog">
+    <div *ngIf="specializationClone" class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="ModalLabelSpecialization">Editing
+                    {{specializationClone.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div>
+                            <div class="input-group form-group">
+                                <label for="specializationName" class="input-group-addon">Specialization</label>
+                                <input name="specializationName" id="specializationName" type="text"
+                                       class="form-control"
+                                       placeholder="Specialization name" [(ngModel)]="specializationClone.name">
+                            </div>
+                            <div class="input-group form-group">
+                                <label for="specializationIco" class="input-group-addon">Specialization ico</label>
+                                <input name="specializationIco" id="specializationIco" type="text" class="form-control"
+                                       placeholder="Specialization ico" [(ngModel)]="specializationClone.ico">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-7">
+                                    <div class="input-group form-group">
+                                        <label for="specializationColor" class="input-group-addon">Color</label>
+                                        <input name="specializationColor" id="specializationColor" type="color"
+                                               class="form-control" placeholder="Color"
+                                               [(ngModel)]="specializationClone.color"
+                                               [style.backgroundColor]="specializationClone.color">
+                                        <!--(change)="getColor($event, specializationColor)">-->
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-5">
+                                    <div class="input-group form-group">
+                                        <label for="display" class="input-group-addon">Specialization display</label>
+                                        <input name="display" id="display" type="checkbox"
+                                               class="form-control" [(ngModel)]="specializationClone.display">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" aria-label="Close"
+                        class="btn btn-default ulockd-btn-thm2 center-block" (click)="saveChangesSpecialization()">Save
+                    changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End modal window TEAM-->
