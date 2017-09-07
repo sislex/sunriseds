@@ -34,7 +34,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let employee of storageService.team; let i = index">
-                            <td>{{i}}</td>
+                            <td>{{i+1}}</td>
                             <td>{{employee.firstName}}</td>
                             <td>{{employee.lastName}}</td>
                             <td>{{employee.sity}}</td>
@@ -82,7 +82,7 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let specialization of storageService.specializations; let i = index">
-                        <td>{{i}}</td>
+                        <td>{{i+1}}</td>
                         <td>{{specialization.name}}</td>
                         <td>{{specialization.ico}}</td>
                         <td>{{specialization.color}}</td>
@@ -186,41 +186,67 @@
                             </div>
                             <div class="form-group">
                                 <h4>Technologies:</h4>
-                                <div *ngFor="let technology of employeeClone.technologies; let i = index" class="form-group">
+                                <div *ngFor="let technology of specializationEmployee; let i = index" class="form-group">
                                     <div class="form-group technologies">
-                                        <div class="input-group form-group">
-                                            <label for="technologyName{{i}}" class="input-group-addon">Technology</label>
-                                            <input name="technologyName{{i}}" id="technologyName{{i}}" type="text" class="form-control"
-                                                   placeholder="Name of the technology" [(ngModel)]="technology.name">
-                                        </div>
                                         <div class="row">
+                                            <div class="col-xs-12 col-sm-7">
+                                                <div class="input-group form-group">
+                                                    <label for="technologyName{{i}}" class="input-group-addon">Technology</label>
+                                                    <select name="technologyName{{i}}" id="technologyName{{i}}" class="form-control" [(ngModel)]="technology.name">
+                                                        <option *ngFor="let specialization of storageService.specializations">{{specialization.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-xs-12 col-sm-5">
                                                 <div class="input-group form-group">
                                                     <label for="technologyExperience{{i}}" class="input-group-addon">Experience</label>
                                                     <input name="technologyExperience{{i}}" id="technologyExperience{{i}}" type="text" class="form-control"
-                                                           placeholder="Experience" [(ngModel)]="technology.experience">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-4">
-                                                <div class="input-group form-group">
-                                                    <label for="technologyIco{{i}}" class="input-group-addon">ICO</label>
-                                                    <input name="technologyIco{{i}}" id="technologyIco{{i}}" type="text" class="form-control"
-                                                           placeholder="ICO" [(ngModel)]="technology.ico">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3">
-                                                <div class="input-group form-group">
-                                                    <label for="technologyColor{{i}}" class="input-group-addon">Color</label>
-                                                    <input name="technologyColor{{i}}" id="technologyColor{{i}}" type="color"
-                                                           class="form-control" placeholder="Color" [(ngModel)]="technology.color"
-                                                           [style.backgroundColor]="technology.color"
-                                                           (change)="getColor($event, 'technologyColor' + i)">
+                                                        placeholder="Experience" [(ngModel)]="technology.experience">
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-warning" (click)="deliteTechnology(technology)">Delite technology</button>
+                                        <button class="btn btn-warning">Delite technology</button>
                                     </div>
                                 </div>
+
+
+
+
+                                <!--<div *ngFor="let technology of employeeClone.technologies; let i = index" class="form-group">-->
+                                    <!--<div class="form-group technologies">-->
+                                        <!--<div class="input-group form-group">-->
+                                            <!--<label for="technologyName{{i}}" class="input-group-addon">Technology</label>-->
+                                            <!--<input name="technologyName{{i}}" id="technologyName{{i}}" type="text" class="form-control"-->
+                                                   <!--placeholder="Name of the technology" [(ngModel)]="technology.name">-->
+                                        <!--</div>-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-xs-12 col-sm-5">-->
+                                                <!--<div class="input-group form-group">-->
+                                                    <!--<label for="technologyExperience{{i}}" class="input-group-addon">Experience</label>-->
+                                                    <!--<input name="technologyExperience{{i}}" id="technologyExperience{{i}}" type="text" class="form-control"-->
+                                                           <!--placeholder="Experience" [(ngModel)]="technology.experience">-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-xs-12 col-sm-4">-->
+                                                <!--<div class="input-group form-group">-->
+                                                    <!--<label for="technologyIco{{i}}" class="input-group-addon">ICO</label>-->
+                                                    <!--<input name="technologyIco{{i}}" id="technologyIco{{i}}" type="text" class="form-control"-->
+                                                           <!--placeholder="ICO" [(ngModel)]="technology.ico">-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-xs-12 col-sm-3">-->
+                                                <!--<div class="input-group form-group">-->
+                                                    <!--<label for="technologyColor{{i}}" class="input-group-addon">Color</label>-->
+                                                    <!--<input name="technologyColor{{i}}" id="technologyColor{{i}}" type="color"-->
+                                                           <!--class="form-control" placeholder="Color" [(ngModel)]="technology.color"-->
+                                                           <!--[style.backgroundColor]="technology.color"-->
+                                                           <!--(change)="getColor($event, 'technologyColor' + i)">-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<button class="btn btn-warning" (click)="deliteTechnology(technology)">Delite technology</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                                 <button class="btn btn-success" (click)="addTechnology()">Add technology</button>
                             </div>
                         </form>
@@ -263,18 +289,25 @@
                                 <input name="specializationIco" id="specializationIco" type="text" class="form-control"
                                        placeholder="Specialization ico" [(ngModel)]="specializationClone.ico">
                             </div>
-                            <div class="input-group form-group">
-                                <label for="specializationColor" class="input-group-addon">Color</label>
-                                <input name="specializationColor" id="specializationColor" type="color"
-                                       class="form-control" placeholder="Color" [(ngModel)]="specializationClone.color"
-                                       [style.backgroundColor]="specializationClone.color"
-                                       (change)="getColor($event, specializationClone.color)">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-7">
+                                    <div class="input-group form-group">
+                                        <label for="specializationColor" class="input-group-addon">Color</label>
+                                        <input name="specializationColor" id="specializationColor" type="color"
+                                               class="form-control" placeholder="Color" [(ngModel)]="specializationClone.color"
+                                               [style.backgroundColor]="specializationClone.color">
+                                               <!--(change)="getColor($event, specializationColor)">-->
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-5">
+                                    <div class="input-group form-group">
+                                        <label for="display" class="input-group-addon">Specialization display</label>
+                                        <input name="display" id="display" type="checkbox"
+                                               class="form-control" [(ngModel)]="specializationClone.display">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="input-group form-group">
-                                <label for="display" class="input-group-addon">Specialization display</label>
-                                <input name="display" id="display" type="checkbox"
-                                       class="form-control" [(ngModel)]="specializationClone.display">
-                            </div>
+
                         </div>
                     </div>
                 </div>

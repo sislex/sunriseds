@@ -15,6 +15,7 @@ export class AdminPanelComponent implements OnInit {
     public activeEmployee;
     public specializationClone = null;
     public activeSpecialization;
+    public specializationEmployee;
 
     constructor(
         private storageService: StorageService,
@@ -22,13 +23,33 @@ export class AdminPanelComponent implements OnInit {
         public requestsService: RequestsService
     ) {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     public editingEmployee(employee) {
         this.employeeClone = JSON.parse(JSON.stringify(employee));
         this.activeEmployee = JSON.parse(JSON.stringify(employee));
+        // this.specializationClone = JSON.parse(JSON.stringify(this.storageService.specializations));
+        this.specializationEmployee = [];
+        console.log(employee);
+        for (const employeeTechnology of employee.technologies) {
+            for (const technology of this.storageService.specializations) {
+                if (employeeTechnology.id === technology.id) {
+                    // console.log(technology.name);
+                    // console.log(employeeTechnology.experience);
+                                let tech = {
+                                    id: technology.id,
+                                    name: technology.name,
+                                    experience: employeeTechnology.experience
+                                };
+                                this.specializationEmployee.push(tech);
+                    break;
+                }
+            }
+        }
+        // console.log(this.specializationEmployee);
     }
+
+
 
     public getFileName(event) {
         let file = event.target.files[0];
@@ -36,8 +57,8 @@ export class AdminPanelComponent implements OnInit {
     }
 
     public getColor(event, name) {
-        const color = document.getElementById(name);
-        color.style.backgroundColor = event.target.value;
+        // const color = document.getElementById(name);
+        // color.style.backgroundColor = event.target.value;
     }
 
     public deliteTechnology(technology) {
@@ -50,16 +71,30 @@ export class AdminPanelComponent implements OnInit {
         this.employeeClone.technologies = technologies;
     }
     public addTechnology() {
-        this.employeeClone.technologies.push({
-            name: '',
-            experience: '',
-            ico: '',
-            color: ''
+        console.log(this.specializationEmployee);
+        this.specializationEmployee.push({
+            id: "",
+            name: "",
+            experience: ""
         });
     }
     public saveChanges() {
+        console.log(this.specializationEmployee);
+        const specializations = [];
+        for (const specialization of this.specializationEmployee) {
+            for (const technology of this.storageService.specializations) {
+                if (specialization.name === technology.name) {
+                    specializations.push({
+                        id: technology.id,
+                        experience: specialization.experience
+                    });
+                }
+            }
+        }
+        this.employeeClone.technologies = specializations;
+        console.log(this.employeeClone);
         for (const employee in this.storageService.team) {
-            if(this.storageService.team[employee].firstName === this.activeEmployee.firstName) {
+            if(this.storageService.team[employee].id === this.activeEmployee.id) {
                 this.storageService.team[employee] = this.employeeClone;
                 break;
             }
@@ -88,7 +123,6 @@ export class AdminPanelComponent implements OnInit {
         }
         this.storageService.team = mass;
     }
-
     
     public editingSpecialization(specialization) {
         this.specializationClone = JSON.parse(JSON.stringify(specialization));
@@ -96,21 +130,25 @@ export class AdminPanelComponent implements OnInit {
     }
 
     public saveChangesSpecialization() {
-        for (const specialization in this.storageService.specializations) {
-            console.log(this.storageService.specializations[specialization].name);
-            if(this.storageService.specializations[specialization].name === this.activeSpecialization.name) {
-                this.storageService.specializations[specialization] = this.specializationClone;
-                break;
+        if (this.specializationClone.name !== '') {
+            for (const specialization in this.storageService.specializations) {
+                if(this.storageService.specializations[specialization].name === this.activeSpecialization.name) {
+                    this.storageService.specializations[specialization] = this.specializationClone;
+                    break;
+                }
             }
+        } else {
+            this.storageService.specializations.pop();
         }
     }
     
     public addSpecialization() {
         const newSpecialization = {
+            id: parseInt(this.storageService.specializations[this.storageService.specializations.length - 1].id) + 1,
             name: '',
             ico: '',
             color: '',
-            display: ''
+            display: false
         };
         this.storageService.specializations.push(newSpecialization);
         this.editingSpecialization(newSpecialization);

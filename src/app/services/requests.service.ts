@@ -25,22 +25,22 @@ export class RequestsService {
     public postSaveEditEmployee(type, data) {
         // return this.httpClient.post('http://sunrisapi/?type=type&action=data');
 
-        console.log('postSaveEditEmployee() is called');
-        const url:string = 'http://sunrisapi/';
-        const headers = new HttpHeaders()
-            .set('Content-Type', 'application/json');
-
-        this.httpClient.post(url, '{"qwe": "qwe"}', {headers})
-            .subscribe(
-                (data) => {
-                    console.log('server returned data:');
-                    console.log(data);
-                },
-                (err) => {
-                    console.log('server error:');
-                    console.log(err);
-                }
-            );
+        // console.log('postSaveEditEmployee() is called');
+        // const url:string = 'http://sunrisapi/';
+        // const headers = new HttpHeaders()
+        //     .set('Content-Type', 'application/json');
+        //
+        // this.httpClient.post(url, '{"qwe": "qwe"}', {headers})
+        //     .subscribe(
+        //         (data) => {
+        //             console.log('server returned data:');
+        //             console.log(data);
+        //         },
+        //         (err) => {
+        //             console.log('server error:');
+        //             console.log(err);
+        //         }
+        //     );
         
     }
 
