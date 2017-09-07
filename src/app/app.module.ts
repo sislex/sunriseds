@@ -1,4 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
@@ -17,7 +18,6 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import {UsersService} from './services/users.service';
 import {RequestsService} from './services/requests.service';
 import {HttpClientModule} from '@angular/common/http';
-import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import {StorageService} from './services/storage.service';
 
 @NgModule({
@@ -32,14 +32,14 @@ import {StorageService} from './services/storage.service';
         AboutComponent,
         TeamComponent,
         TeamDetailsComponent,
-        ProjectsComponent,
-        AdminPanelComponent
+        ProjectsComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        CommonModule
     ],
     providers: [
         UsersService,

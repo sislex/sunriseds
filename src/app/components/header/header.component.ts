@@ -7,8 +7,8 @@ import {UsersService} from '../../services/users.service';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-    public userName:string = '';
-    public userPassword:string = '';
+    public userName:string = 'sergei@gmail.ru';
+    public userPassword:string = '123';
 
 
     constructor(private usersService:UsersService) {
