@@ -29,6 +29,12 @@ export class AdminPanelProjectsComponent implements OnInit {
         // this.projectClone = JSON.parse(JSON.stringify(project));
         this.activeProject = project;
 
+        this.createEmployeeArrays(project);
+        this.createTechnologiesArrays(project);
+
+    }
+
+    private createEmployeeArrays(project) {
         this.employees = [];
         this.projectMembers = [];
         for (const employee of this.storageService.team) {
@@ -64,6 +70,24 @@ export class AdminPanelProjectsComponent implements OnInit {
         }
     }
 
+    private createTechnologiesArrays(project) {
+        this.technologies = [];
+        this.technologiesMembers = [];
+        
+        for (const specialization of this.storageService.specializations) {
+            let notProject = true;
+            for (const technologyProject of project.technologies) {
+                if (specialization.id === technologyProject) {
+                    this.technologiesMembers.push(specialization);
+                    notProject = false;
+                }
+            }
+            if (notProject === true) {
+                this.technologies.push(specialization);
+            }
+        }
+    }
+
     //I delete an employee from the this.projectMembers and add to the project this.employees
     public delEmployee(delEmployee) {
         const mass = [];
@@ -89,6 +113,29 @@ export class AdminPanelProjectsComponent implements OnInit {
         this.projectMembers.push(addEmployee);
     }
 
+    public delTechnology(delTechnology) {
+        const mass = [];
+        for (const technology of this.technologiesMembers) {
+            if (technology !== delTechnology) {
+                mass.push(technology);
+            }
+        }
+        this.technologiesMembers = mass;
+        delTechnology.description_for_project = '';
+        this.technologies.push(delTechnology);
+    }
+
+    public addTechnologyProject(addTechnology) {
+        const mass = [];
+        for (const technology of this.technologies) {
+            if (technology !== addTechnology) {
+                mass.push(technology);
+            }
+        }
+        this.technologies = mass;
+        this.technologiesMembers.push(addTechnology);
+    }
+
     public delProject(delProject) {
         const mass = [];
         for (const project of this.storageService.projects) {
@@ -100,7 +147,7 @@ export class AdminPanelProjectsComponent implements OnInit {
     }
     
     public saveChanges() {
-        const mass = [];
+        let mass = [];
         for (const employee of this.projectMembers) {
             mass.push({
                 id: employee.id,
@@ -108,6 +155,11 @@ export class AdminPanelProjectsComponent implements OnInit {
             });
         }
         this.activeProject.employees = mass;
+        mass = [];
+        for (const technology of this.technologiesMembers) {
+            mass.push(technology.id);
+        }
+        this.activeProject.technologies = mass;
     }
 
 }
