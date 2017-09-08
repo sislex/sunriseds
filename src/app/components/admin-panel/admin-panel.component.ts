@@ -7,21 +7,9 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AdminPanelComponent implements OnInit {
     
-    
-
     constructor() {}
 
     ngOnInit() {}
-    
 
-    public getColor(event, name) {
-        // const color = document.getElementById(name);
-        // color.style.backgroundColor = event.target.value;
-    }
-
-    
-    
-    
-    
     
 }

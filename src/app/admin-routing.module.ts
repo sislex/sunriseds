@@ -3,11 +3,13 @@ import {RouterModule, PreloadAllModules} from '@angular/router';
 import {AdminPanelComponent} from './components/admin-panel/admin-panel.component';
 import {AdminPanelTeamComponent} from './components/admin-panel-team/admin-panel-team.component';
 import {AdminPanelSpecializationsComponent} from './components/admin-panel-specializations/admin-panel-specializations.component';
+import {AdminPanelProjectsComponent} from './components/admin-panel-projects/admin-panel-projects.component';
 
 const ROUTES = [
     {path: '', component: AdminPanelComponent, children: [
         {path: 'team', component: AdminPanelTeamComponent},
-        {path: 'specializations', component: AdminPanelSpecializationsComponent}
+        {path: 'specializations', component: AdminPanelSpecializationsComponent},
+        {path: 'projects', component: AdminPanelProjectsComponent}
     ]},
 ];
 

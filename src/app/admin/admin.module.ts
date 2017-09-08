@@ -5,6 +5,7 @@ import {AdminRoutingModule} from '../admin-routing.module';
 import {AdminPanelComponent} from '../components/admin-panel/admin-panel.component';
 import {AdminPanelTeamComponent} from '../components/admin-panel-team/admin-panel-team.component';
 import {AdminPanelSpecializationsComponent} from '../components/admin-panel-specializations/admin-panel-specializations.component';
+import {AdminPanelProjectsComponent} from '../components/admin-panel-projects/admin-panel-projects.component';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import {AdminPanelSpecializationsComponent} from '../components/admin-panel-spec
     declarations: [
         AdminPanelComponent,
         AdminPanelTeamComponent,
-        AdminPanelSpecializationsComponent
+        AdminPanelSpecializationsComponent,
+        AdminPanelProjectsComponent
     ]
 })
 export class AdminModule {

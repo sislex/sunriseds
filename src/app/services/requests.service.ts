@@ -17,6 +17,9 @@ export class RequestsService {
     public getSpecializationsJson() {
         return this.httpClient.get('http://sunrisapi/?type=specializations&action=get');
     }
+    public getProjectsJson() {
+        return this.httpClient.get('http://sunrisapi/?type=projects&action=get');
+    }
 
     
     
