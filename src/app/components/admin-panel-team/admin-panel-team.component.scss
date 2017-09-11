@@ -16,9 +16,6 @@
   //max-width: 92px;
   background-color: #fff;
 }
-#image_fake{
-  height: 94px;
-}
 .technologies{
   padding: 10px;
   border: 2px solid silver;
@@ -40,4 +37,12 @@
   .little-edit-employee{
     display: none;
   }
+}
+.border{
+  border: 1px solid silver;
+  border-radius: 5px;
+  padding: 10px;
+}
+.cursor-pointer {
+  cursor: pointer;
 }

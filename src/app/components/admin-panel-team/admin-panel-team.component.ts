@@ -13,6 +13,11 @@ export class AdminPanelTeamComponent implements OnInit {
     public activeEmployee;
     public specializationEmployee;
 
+    public technologiesEmployee = []; // Technologies used in the employee
+    public technologies = []; // Technologies not used in the employee
+
+    public textDropDownListTechnologies = 'Click for select technology';
+
     constructor(
         private storageService: StorageService,
         private requestsService: RequestsService,
@@ -25,19 +30,42 @@ export class AdminPanelTeamComponent implements OnInit {
     public editingEmployee(employee) {
         this.employeeClone = JSON.parse(JSON.stringify(employee));
         this.activeEmployee = JSON.parse(JSON.stringify(employee));
-        this.specializationEmployee = [];
-        console.log(employee);
-        for (const employeeTechnology of employee.technologies) {
-            for (const technology of this.storageService.specializations) {
-                if (employeeTechnology.id === technology.id) {
-                    let tech = {
-                        id: technology.id,
-                        name: technology.name,
-                        experience: employeeTechnology.experience
-                    };
-                    this.specializationEmployee.push(tech);
-                    break;
+        this.createTechnologiesArrays(employee);
+    }
+
+    public createTechnologiesArrays(employee) {
+        this.technologies = [];
+        this.technologiesEmployee = [];
+
+        for (const specialization of this.storageService.specializations) {
+            let notEmployee = true;
+            for (const technologyProject of employee.technologies) {
+                if (specialization.id === technologyProject.id) {
+                    for (const employeeTechnology of employee.technologies) {
+                        if (employeeTechnology.id === technologyProject.id) {
+                            this.technologiesEmployee.push({
+                                id: specialization.id,
+                                name: specialization.name,
+                                ico: specialization.ico,
+                                color: specialization.color,
+                                display: specialization.display,
+                                experience: employeeTechnology.experience
+                            });
+                            break;
+                        }
+                    }
+                    notEmployee = false;
                 }
+            }
+            if (notEmployee === true) {
+                this.technologies.push({
+                    id: specialization.id,
+                    name: specialization.name,
+                    ico: specialization.ico,
+                    color: specialization.color,
+                    display: specialization.display,
+                    experience: ''
+                });
             }
         }
     }
@@ -47,28 +75,44 @@ export class AdminPanelTeamComponent implements OnInit {
         this.employeeClone.image = this.domSanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
     }
 
-    public deliteTechnology(technology) {
-        const technologies = [];
-        for (const item of this.specializationEmployee) {
-            if (technology !== item) {
-                technologies.push(item);
+    public textDropDownListNamesTechnologies() {
+        if (this.textDropDownListTechnologies === 'Click for select technology') {
+            this.textDropDownListTechnologies = 'Hide technology';
+        } else if (this.textDropDownListTechnologies === 'Hide technology') {
+            this.textDropDownListTechnologies = 'Click for select technology';
+        }
+    }
+
+    public delTechnology(delTechnology) {
+        const mass = [];
+        for (const technology of this.technologiesEmployee) {
+            if (technology !== delTechnology) {
+                mass.push(technology);
             }
         }
-        this.specializationEmployee = technologies;
+        this.technologiesEmployee = mass;
+        delTechnology.experience = '';
+        this.technologies.push(delTechnology);
     }
-    public addTechnology() {
-        console.log(this.specializationEmployee);
-        this.specializationEmployee.push({
-            id: "",
-            name: "",
-            experience: ""
-        });
+
+    public addTechnologyProject(addTechnology) {
+        const mass = [];
+        for (const technology of this.technologies) {
+            if (technology !== addTechnology) {
+                mass.push(technology);
+            }
+        }
+        this.technologies = mass;
+        this.technologiesEmployee.push(addTechnology);
     }
+    
     public saveChanges() {
         const specializations = [];
-        for (const specialization of this.specializationEmployee) {
+        for (const specialization of this.technologiesEmployee) {
             for (const technology of this.storageService.specializations) {
                 if (specialization.name === technology.name) {
+                    console.log(specialization.name);
+                    console.log(technology.name);
                     specializations.push({
                         id: technology.id,
                         experience: specialization.experience

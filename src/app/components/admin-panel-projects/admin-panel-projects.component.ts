@@ -15,6 +15,9 @@ export class AdminPanelProjectsComponent implements OnInit {
     public technologiesMembers = []; // Technologies used in the project
     public technologies = []; // Technologies not used in the project
 
+    public textDropDownListTechnologies = 'Click for select technology';
+    public textDropDownListEmployees = 'Click for select employees';
+
     constructor(private storageService: StorageService) {
     }
 
@@ -22,6 +25,25 @@ export class AdminPanelProjectsComponent implements OnInit {
     }
     
     public addProject() {
+        const newSpecialization = {
+            id: parseInt(this.storageService.specializations[this.storageService.specializations.length - 1].id) + 1,
+            name: '',
+            ico: '',
+            color: '',
+            display: false
+        };
+
+        const newProject = {
+            id: parseInt(this.storageService.projects[this.storageService.projects.length - 1].id) + 1,
+            name: '',
+            description: '',
+            text: '',
+            images: [],
+            employees: [],
+            technologies: []
+        };
+        this.storageService.projects.push(newProject);
+        this.editingProject(newProject);
         
     }
 
@@ -99,6 +121,22 @@ export class AdminPanelProjectsComponent implements OnInit {
         this.projectMembers = mass;
         delEmployee.description_for_project = '';
         this.employees.push(delEmployee);
+    }
+
+    public textDropDownListNamesEmployees() {
+        if (this.textDropDownListEmployees === 'Click for select employees') {
+            this.textDropDownListEmployees = 'Hide employees';
+        } else if (this.textDropDownListEmployees === 'Hide employees') {
+            this.textDropDownListEmployees = 'Click for select employees';
+        }
+    }
+
+    public textDropDownListNamesTechnologies() {
+        if (this.textDropDownListTechnologies === 'Click for select technology') {
+            this.textDropDownListTechnologies = 'Hide technology';
+        } else if (this.textDropDownListTechnologies === 'Hide technology') {
+            this.textDropDownListTechnologies = 'Click for select technology';
+        }
     }
 
     // I'm adding an employee from the this.projectMembers and delete it from the this.employees

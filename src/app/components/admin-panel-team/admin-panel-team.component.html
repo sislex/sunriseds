@@ -60,141 +60,128 @@
                     {{employeeClone.lastName}}</h4>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12 text-center hvr-float-shadow">
-                        <form class="" enctype="multipart/form-data">
-                            <div class="row big-edit-employee">
-                                <div class="col-xs-3">
-                                    <label for="image" class="label-img form-group" id="basic-addon5">
-                                        <img *ngIf="employeeClone.image" id="employee-img" [src]="employeeClone.image">
-                                    </label>
-                                    <input id="image" type="file" (change)="getFileName($event)">
-                                </div>
-                                <div class="col-xs-9">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <label for="firstName" class="input-group-addon">First name</label>
-                                            <input name="firstName" id="firstName" type="text" class="form-control"
-                                                   placeholder="First name" [(ngModel)]="employeeClone.firstName">
+                <div class="tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_1" data-toggle="tab">Basic information</a></li>
+                        <li><a href="#tab_2" data-toggle="tab">Technologies</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab_1">
+                            <div class="border">
+                                <form class="" enctype="multipart/form-data">
+                                    <div class="row big-edit-employee">
+                                        <div class="col-xs-3">
+                                            <label for="image" class="label-img form-group" id="basic-addon5">
+                                                <img *ngIf="employeeClone.image" id="employee-img" [src]="employeeClone.image">
+                                            </label>
+                                            <input id="image" type="file" (change)="getFileName($event)">
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-9">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <label for="lastName" class="input-group-addon">First name</label>
-                                            <input name="lastName" id="lastName" type="text" class="form-control"
-                                                   placeholder="Last name" [(ngModel)]="employeeClone.lastName">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="little-edit-employee">
-                                <div class="form-group">
-                                    <label for="image">
-                                        <img *ngIf="employeeClone.image" class="img-responsive img-whp"
-                                             [src]="employeeClone.image">
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <label for="firstName2" class="input-group-addon">First name</label>
-                                        <input name="firstName" id="firstName2" type="text" class="form-control"
-                                               placeholder="First name" [(ngModel)]="employeeClone.firstName">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <label for="lastName2" class="input-group-addon">First name</label>
-                                        <input name="lastName" id="lastName2" type="text" class="form-control"
-                                               placeholder="Last name" [(ngModel)]="employeeClone.lastName">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <label for="sity" class="input-group-addon">Sity</label>
-                                    <input name="sity" id="sity" type="text" class="form-control"
-                                           placeholder="Sity" [(ngModel)]="employeeClone.sity">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <label for="position" class="input-group-addon">Position</label>
-                                    <input name="position" id="position" type="text" class="form-control"
-                                           placeholder="Position" [(ngModel)]="employeeClone.position">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <h4>Technologies:</h4>
-                                <div *ngFor="let technology of specializationEmployee; let i = index"
-                                     class="form-group">
-                                    <div class="form-group technologies">
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-7">
-                                                <div class="input-group form-group">
-                                                    <label for="technologyName{{i}}" class="input-group-addon">Technology</label>
-                                                    <select name="technologyName{{i}}" id="technologyName{{i}}"
-                                                            class="form-control" [(ngModel)]="technology.name">
-                                                        <option *ngFor="let specialization of storageService.specializations">
-                                                            {{specialization.name}}
-                                                        </option>
-                                                    </select>
+                                        <div class="col-xs-9">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <label for="firstName" class="input-group-addon">First name</label>
+                                                    <input name="firstName" id="firstName" type="text" class="form-control"
+                                                           placeholder="First name" [(ngModel)]="employeeClone.firstName">
                                                 </div>
                                             </div>
-                                            <div class="col-xs-12 col-sm-5">
-                                                <div class="input-group form-group">
-                                                    <label for="technologyExperience{{i}}" class="input-group-addon">Experience</label>
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <label for="lastName" class="input-group-addon">First name</label>
+                                                    <input name="lastName" id="lastName" type="text" class="form-control"
+                                                           placeholder="Last name" [(ngModel)]="employeeClone.lastName">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="little-edit-employee">
+                                        <div class="form-group">
+                                            <label for="image">
+                                                <img *ngIf="employeeClone.image" class="img-responsive img-whp"
+                                                     [src]="employeeClone.image">
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <label for="firstName2" class="input-group-addon">First name</label>
+                                                <input name="firstName" id="firstName2" type="text" class="form-control"
+                                                       placeholder="First name" [(ngModel)]="employeeClone.firstName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <label for="lastName2" class="input-group-addon">First name</label>
+                                                <input name="lastName" id="lastName2" type="text" class="form-control"
+                                                       placeholder="Last name" [(ngModel)]="employeeClone.lastName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label for="sity" class="input-group-addon">Sity</label>
+                                            <input name="sity" id="sity" type="text" class="form-control"
+                                                   placeholder="Sity" [(ngModel)]="employeeClone.sity">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label for="position" class="input-group-addon">Position</label>
+                                            <input name="position" id="position" type="text" class="form-control"
+                                                   placeholder="Position" [(ngModel)]="employeeClone.position">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab_2">
+                            <!--Technologies used in the project-->
+                            <div class="container-fluid form-group border">
+                                <div class="form-group border">
+                                    <label class="form-control text-center">Skills</label>
+                                    <div class="row">
+                                        <div *ngFor="let technology of technologiesEmployee; let i = index" class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                                            <div class="thumbnail text-center">
+                                                <img class="form-group" [src]="technology.ico" alt="{{technology.name}}" title="{{technology.name}}">
+                                                <div class="">
+                                                    <label for="technologyExperience{{i}}" class="">Experience:</label>
                                                     <input name="technologyExperience{{i}}"
                                                            id="technologyExperience{{i}}" type="text"
                                                            class="form-control"
                                                            placeholder="Experience" [(ngModel)]="technology.experience">
                                                 </div>
+                                                <div class="caption text-center">
+                                                    <button class="btn btn-success" title="Delite" (click)="delTechnology(technology)"><i class="fa fa-trash"></i></button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-warning" (click)="deliteTechnology(technology)">Delite technology</button>
+                                    </div>
+                                    <div id="technologies" class="panel-group">
+                                        <div class="panel panel-success">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title text-center">
+                                                    <a id="textDropDownListName" href="#technology-1" data-parent="#technologies" data-toggle="collapse" (click)="textDropDownListNamesTechnologies()">{{textDropDownListTechnologies}}</a>
+                                                </h4>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="technology-1">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div *ngFor="let technology of technologies"
+                                                             class="col-xs-6 col-sm-4 col-md-3 form-group text-center">
+                                                            <a class="cursor-pointer">
+                                                                <img [src]="technology.ico" alt="{{technology.name}}"
+                                                                     title="{{technology.name}}" (click)="addTechnologyProject(technology)">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
-
-                                <!--<div *ngFor="let technology of employeeClone.technologies; let i = index" class="form-group">-->
-                                <!--<div class="form-group technologies">-->
-                                <!--<div class="input-group form-group">-->
-                                <!--<label for="technologyName{{i}}" class="input-group-addon">Technology</label>-->
-                                <!--<input name="technologyName{{i}}" id="technologyName{{i}}" type="text" class="form-control"-->
-                                <!--placeholder="Name of the technology" [(ngModel)]="technology.name">-->
-                                <!--</div>-->
-                                <!--<div class="row">-->
-                                <!--<div class="col-xs-12 col-sm-5">-->
-                                <!--<div class="input-group form-group">-->
-                                <!--<label for="technologyExperience{{i}}" class="input-group-addon">Experience</label>-->
-                                <!--<input name="technologyExperience{{i}}" id="technologyExperience{{i}}" type="text" class="form-control"-->
-                                <!--placeholder="Experience" [(ngModel)]="technology.experience">-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="col-xs-12 col-sm-4">-->
-                                <!--<div class="input-group form-group">-->
-                                <!--<label for="technologyIco{{i}}" class="input-group-addon">ICO</label>-->
-                                <!--<input name="technologyIco{{i}}" id="technologyIco{{i}}" type="text" class="form-control"-->
-                                <!--placeholder="ICO" [(ngModel)]="technology.ico">-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="col-xs-12 col-sm-3">-->
-                                <!--<div class="input-group form-group">-->
-                                <!--<label for="technologyColor{{i}}" class="input-group-addon">Color</label>-->
-                                <!--<input name="technologyColor{{i}}" id="technologyColor{{i}}" type="color"-->
-                                <!--class="form-control" placeholder="Color" [(ngModel)]="technology.color"-->
-                                <!--[style.backgroundColor]="technology.color"-->
-                                <!--(change)="getColor($event, 'technologyColor' + i)">-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<button class="btn btn-warning" (click)="deliteTechnology(technology)">Delite technology</button>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <button class="btn btn-success" (click)="addTechnology()">Add technology</button>
                             </div>
-                        </form>
+                            <!--End technologies used in the project-->
+                        </div>
                     </div>
                 </div>
             </div>
