@@ -8,11 +8,14 @@ export class StorageService {
     public team = [];
     public specializations = [];
     public projects = [];
+    public contacts = [];
+    public contactsClone = [];
 
     constructor(private requestsService: RequestsService) {
         this.getTeam();
         this.getSpecializations();
         this.getProjects();
+        this.getContacts();
     }
 
     public getTeam() {
@@ -31,6 +34,13 @@ export class StorageService {
         this.teamObservable = this.requestsService.getProjectsJson();
         this.teamObservable.subscribe((data: any) => {
             this.projects = data;
+        });
+    }
+    public getContacts() {
+        this.teamObservable = this.requestsService.getContactsJson();
+        this.teamObservable.subscribe((data: any) => {
+            this.contacts = data;
+            this.contactsClone = JSON.parse(JSON.stringify(this.contacts));
         });
     }
     

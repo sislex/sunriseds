@@ -25,13 +25,13 @@ export class AdminPanelProjectsComponent implements OnInit {
     }
     
     public addProject() {
-        const newSpecialization = {
-            id: parseInt(this.storageService.specializations[this.storageService.specializations.length - 1].id) + 1,
-            name: '',
-            ico: '',
-            color: '',
-            display: false
-        };
+        // const newSpecialization = {
+        //     id: parseInt(this.storageService.specializations[this.storageService.specializations.length - 1].id) + 1,
+        //     name: '',
+        //     ico: '',
+        //     color: '',
+        //     display: false
+        // };
 
         const newProject = {
             id: parseInt(this.storageService.projects[this.storageService.projects.length - 1].id) + 1,

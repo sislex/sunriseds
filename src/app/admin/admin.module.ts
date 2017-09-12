@@ -6,6 +6,7 @@ import {AdminPanelComponent} from '../components/admin-panel/admin-panel.compone
 import {AdminPanelTeamComponent} from '../components/admin-panel-team/admin-panel-team.component';
 import {AdminPanelSpecializationsComponent} from '../components/admin-panel-specializations/admin-panel-specializations.component';
 import {AdminPanelProjectsComponent} from '../components/admin-panel-projects/admin-panel-projects.component';
+import {AdminPanelContactsComponent} from '../components/admin-panel-contacts/admin-panel-contacts.component';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import {AdminPanelProjectsComponent} from '../components/admin-panel-projects/ad
         AdminPanelComponent,
         AdminPanelTeamComponent,
         AdminPanelSpecializationsComponent,
-        AdminPanelProjectsComponent
+        AdminPanelProjectsComponent,
+        AdminPanelContactsComponent
     ]
 })
 export class AdminModule {

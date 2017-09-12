@@ -20,6 +20,9 @@ export class RequestsService {
     public getProjectsJson() {
         return this.httpClient.get('http://sunrisapi/?type=projects&action=get');
     }
+    public getContactsJson() {
+        return this.httpClient.get('http://sunrisapi/?type=contacts&action=get');
+    }
 
     
     
