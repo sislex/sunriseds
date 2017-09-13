@@ -23,6 +23,9 @@ export class RequestsService {
     public getContactsJson() {
         return this.httpClient.get('http://sunrisapi/?type=contacts&action=get');
     }
+    public getAboutJson() {
+        return this.httpClient.get('http://sunrisapi/?type=about&action=get');
+    }
 
     
     

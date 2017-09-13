@@ -13,12 +13,15 @@ export class StorageService {
     public projectsClone = [];
     public contacts = [];
     public contactsClone = [];
+    public about = [];
+    public aboutClone = [];
 
     constructor(private requestsService: RequestsService) {
         this.getTeam();
         this.getSpecializations();
         this.getProjects();
         this.getContacts();
+        this.getAbout();
     }
 
     public getTeam() {
@@ -47,6 +50,13 @@ export class StorageService {
         this.teamObservable.subscribe((data: any) => {
             this.contacts = data;
             this.contactsClone = JSON.parse(JSON.stringify(this.contacts));
+        });
+    }
+    public getAbout() {
+        this.teamObservable = this.requestsService.getAboutJson();
+        this.teamObservable.subscribe((data: any) => {
+            this.about = data;
+            this.aboutClone = JSON.parse(JSON.stringify(this.about));
         });
     }
     
