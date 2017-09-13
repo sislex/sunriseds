@@ -7,8 +7,9 @@ import {StorageService} from '../../services/storage.service';
     styleUrls: ['./admin-panel-projects.component.scss']
 })
 export class AdminPanelProjectsComponent implements OnInit {
-    // public projectClone = null;
-    public activeProject;
+    public projectActive;
+    public keyActive;
+    
     public projectMembers = [];//Employees participating in the project
     public employees = [];//List of employees not participating in the project
 
@@ -18,23 +19,20 @@ export class AdminPanelProjectsComponent implements OnInit {
     public textDropDownListTechnologies = 'Click for select technology';
     public textDropDownListEmployees = 'Click for select employees';
 
-    constructor(private storageService: StorageService) {
-    }
+    constructor(private storageService: StorageService) {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
     
     public addProject() {
-        // const newSpecialization = {
-        //     id: parseInt(this.storageService.specializations[this.storageService.specializations.length - 1].id) + 1,
-        //     name: '',
-        //     ico: '',
-        //     color: '',
-        //     display: false
-        // };
-
-        const newProject = {
-            id: parseInt(this.storageService.projects[this.storageService.projects.length - 1].id) + 1,
+        this.projectActive = [];
+        let id: number;
+        if (this.storageService.projectsClone.length) {
+            id = parseInt(this.storageService.projectsClone[this.storageService.projectsClone.length - 1].id) + 1;
+        } else {
+            id = 1;
+        }
+        this.projectActive = {
+            id: id,
             name: '',
             description: '',
             text: '',
@@ -42,18 +40,16 @@ export class AdminPanelProjectsComponent implements OnInit {
             employees: [],
             technologies: []
         };
-        this.storageService.projects.push(newProject);
-        this.editingProject(newProject);
+        this.editingProject(this.projectActive, this.storageService.projectsClone.length);
         
     }
 
-    public editingProject(project) {
-        // this.projectClone = JSON.parse(JSON.stringify(project));
-        this.activeProject = project;
+    public editingProject(project, i) {
+        this.keyActive = i;
+        this.projectActive = JSON.parse(JSON.stringify(project));
 
         this.createEmployeeArrays(project);
         this.createTechnologiesArrays(project);
-
     }
 
     private createEmployeeArrays(project) {
@@ -110,17 +106,26 @@ export class AdminPanelProjectsComponent implements OnInit {
         }
     }
 
+    public delProject(key) {
+        this.storageService.projectsClone.splice(key, 1);
+        this.storageService.projects = JSON.parse(JSON.stringify(this.storageService.projectsClone));
+    }
+
+    public undoModalWindows() {
+        this.storageService.projectsClone = JSON.parse(JSON.stringify(this.storageService.projects));
+    }
+
     //I delete an employee from the this.projectMembers and add to the project this.employees
-    public delEmployee(delEmployee) {
-        const mass = [];
-        for (const employee of this.projectMembers) {
-            if (employee !== delEmployee) {
-                mass.push(employee);
-            }
-        }
-        this.projectMembers = mass;
-        delEmployee.description_for_project = '';
-        this.employees.push(delEmployee);
+    public delEmployee(employee, key) {
+        this.projectMembers.splice(key, 1);
+        employee.description_for_project = '';
+        this.employees.push(employee);
+    }
+
+    // I'm adding an employee from the this.projectMembers and delete it from the this.employees
+    public addEmployeeProject(employee, key) {
+        this.employees.splice(key, 1);
+        this.projectMembers.push(employee);
     }
 
     public textDropDownListNamesEmployees() {
@@ -131,57 +136,23 @@ export class AdminPanelProjectsComponent implements OnInit {
         }
     }
 
+    public delTechnology(technology, key) {
+        this.technologiesMembers.splice(key, 1);
+        technology.description_for_project = '';
+        this.technologies.push(technology);
+    }
+
+    public addTechnologyProject(technology, key) {
+        this.technologies.splice(key, 1);
+        this.technologiesMembers.push(technology);
+    }
+
     public textDropDownListNamesTechnologies() {
         if (this.textDropDownListTechnologies === 'Click for select technology') {
             this.textDropDownListTechnologies = 'Hide technology';
         } else if (this.textDropDownListTechnologies === 'Hide technology') {
             this.textDropDownListTechnologies = 'Click for select technology';
         }
-    }
-
-    // I'm adding an employee from the this.projectMembers and delete it from the this.employees
-    public addEmployeeProject(addEmployee) {
-        const mass = [];
-        for (const employee of this.employees) {
-            if (employee !== addEmployee) {
-                mass.push(employee);
-            }
-        }
-        this.employees = mass;
-        this.projectMembers.push(addEmployee);
-    }
-
-    public delTechnology(delTechnology) {
-        const mass = [];
-        for (const technology of this.technologiesMembers) {
-            if (technology !== delTechnology) {
-                mass.push(technology);
-            }
-        }
-        this.technologiesMembers = mass;
-        delTechnology.description_for_project = '';
-        this.technologies.push(delTechnology);
-    }
-
-    public addTechnologyProject(addTechnology) {
-        const mass = [];
-        for (const technology of this.technologies) {
-            if (technology !== addTechnology) {
-                mass.push(technology);
-            }
-        }
-        this.technologies = mass;
-        this.technologiesMembers.push(addTechnology);
-    }
-
-    public delProject(delProject) {
-        const mass = [];
-        for (const project of this.storageService.projects) {
-            if (project !== delProject) {
-                mass.push(project);
-            }
-        }
-        this.storageService.projects = mass;
     }
     
     public saveChanges() {
@@ -192,12 +163,14 @@ export class AdminPanelProjectsComponent implements OnInit {
                 description: employee.description_for_project
             });
         }
-        this.activeProject.employees = mass;
+        this.projectActive.employees = mass;
         mass = [];
         for (const technology of this.technologiesMembers) {
             mass.push(technology.id);
         }
-        this.activeProject.technologies = mass;
+        this.projectActive.technologies = mass;
+        this.storageService.projectsClone.splice(this.keyActive, 1, this.projectActive);
+        this.storageService.projects = JSON.parse(JSON.stringify(this.storageService.projectsClone));
     }
 
 }

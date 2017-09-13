@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let project of storageService.projects; let i = index">
+        <tr *ngFor="let project of storageService.projectsClone; let i = index">
             <td>{{i+1}}</td>
             <td>{{project.name}}</td>
             <td>
@@ -28,11 +28,11 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-secondary" title="Editing" data-toggle="modal"
                                 data-target="#project"
-                                (click)="editingProject(project)">
+                                (click)="editingProject(project, i)">
                             <i class="fa fa-pencil"></i>
                         </button>
                         <button type="button" class="btn btn-secondary text-danger" title="Delite"
-                                (click)="delProject(project)">
+                                (click)="delProject(i)">
                             <i class="fa fa-trash"></i>
                         </button>
                     </div>
@@ -46,12 +46,12 @@
 
 <!--Start modal window projects-->
 <div class="modal fade" id="project" tabindex="-1" role="dialog">
-    <div *ngIf="activeProject" class="modal-dialog modal-lg" role="document">
+    <div *ngIf="projectActive" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="undoModalWindows()">
                     <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-center" id="exampleModalLabel">Editing {{activeProject.name}}</h4>
+                <h4 class="modal-title text-center" id="exampleModalLabel">Editing {{projectActive.name}}</h4>
             </div>
             <div class="modal-body">
                 <!--Start tabs-->
@@ -70,7 +70,7 @@
                                     <div class="input-group">
                                         <label for="name" class="input-group-addon">Name project</label>
                                         <input name="name" id="name" type="text" class="form-control"
-                                               placeholder="Name project" [(ngModel)]="activeProject.name">
+                                               placeholder="Name project" [(ngModel)]="projectActive.name">
                                     </div>
                                 </div>
                                 <!--End name project-->
@@ -78,14 +78,14 @@
                                 <div class="form-group">
                                     <label for="description" class="description-label text-center">Description project</label>
                                     <textarea name="description" id="description" class="form-control" rows="3"
-                                              placeholder="Description project" [(ngModel)]="activeProject.description"></textarea>
+                                              placeholder="Description project" [(ngModel)]="projectActive.description"></textarea>
                                             </div>
                                             <!--End description project-->
                                             <!--Text project-->
                                             <div class="form-group">
                                                 <label for="text" class="text-label text-center">Text project</label>
                                     <textarea name="text" id="text" class="form-control" rows="5"
-                                              placeholder="Text project" [(ngModel)]="activeProject.text"></textarea>
+                                              placeholder="Text project" [(ngModel)]="projectActive.text"></textarea>
                                 </div>
                                 <!--End text project-->
                             </div>
@@ -95,7 +95,7 @@
                             <div class="form-group border">
                                 <label class="form-control text-center">Images projects</label>
                                 <div class="row">
-                                    <div *ngFor="let img of activeProject.images" class="col-sm-6 col-md-4">
+                                    <div *ngFor="let img of projectActive.images" class="col-sm-6 col-md-4">
                                         <div class="thumbnail">
                                             <img [src]="img" alt="{{img}}" title="{{img}}">
                                             <div class="caption text-center">
@@ -121,7 +121,7 @@
                                     <div class="row">
                                         <label class="form-control text-center height-auto">Employees working on the project</label>
                                     </div>
-                                    <div *ngFor="let employee of projectMembers" class="row form-group border">
+                                    <div *ngFor="let employee of projectMembers; let i = index" class="row form-group border">
                                         <div class="col-xs-12 col-sm-4 form-group text-center">
                                             <img [src]="employee.image" alt="{{employee.image}}" title="{{employee.firstName}} {{employee.lastName}}">
                                         </div>
@@ -137,7 +137,7 @@
                                                           placeholder="Description project" [(ngModel)]="employee.description_for_project"></textarea>
                                             </div>
                                             <div class="text-center">
-                                                <button class="btn btn-success btn-sm" title="Removing an employee from the project" (click)="delEmployee(employee)">Remove an employee</button>
+                                                <button class="btn btn-success btn-sm" title="Removing an employee from the project" (click)="delEmployee(employee, i)">Remove an employee</button>
                                             </div>
                                         </div>
 
@@ -153,11 +153,11 @@
                                                 <div class="panel-collapse collapse" id="employee-1">
                                                     <div class="panel-body">
                                                         <div class="row">
-                                                            <div *ngFor="let employee of employees"
+                                                            <div *ngFor="let employee of employees; let i = index"
                                                                  class="col-xs-6 col-sm-4 col-md-3 form-group text-center">
                                                                 <a class="cursor-pointer">
                                                                     <img [src]="employee.image" alt="{{employee.firstName}} {{employee.lastName}}"
-                                                                         title="{{employee.firstName}} {{employee.lastName}}" (click)="addEmployeeProject(employee)">
+                                                                         title="{{employee.firstName}} {{employee.lastName}}" (click)="addEmployeeProject(employee, i)">
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -177,11 +177,11 @@
                                 <div class="form-group border">
                                     <label class="form-control text-center">Technologies projects</label>
                                     <div class="row">
-                                        <div *ngFor="let technology of technologiesMembers" class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                                        <div *ngFor="let technology of technologiesMembers; let i = index" class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                                             <div class="thumbnail text-center">
                                                 <img [src]="technology.ico" alt="{{technology.name}}" title="{{technology.name}}">
                                                 <div class="caption text-center">
-                                                    <button class="btn btn-success" title="Delite" (click)="delTechnology(technology)"><i class="fa fa-trash"></i></button>
+                                                    <button class="btn btn-success" title="Delite" (click)="delTechnology(technology, i)"><i class="fa fa-trash"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,11 +196,11 @@
                                             <div class="panel-collapse collapse" id="technology-1">
                                                 <div class="panel-body">
                                                     <div class="row">
-                                                        <div *ngFor="let technology of technologies"
+                                                        <div *ngFor="let technology of technologies; let i = index"
                                                              class="col-xs-6 col-sm-4 col-md-3 form-group text-center">
                                                             <a class="cursor-pointer">
                                                                 <img [src]="technology.ico" alt="{{technology.name}}"
-                                                                     title="{{technology.name}}" (click)="addTechnologyProject(technology)">
+                                                                     title="{{technology.name}}" (click)="addTechnologyProject(technology, i)">
                                                             </a>
                                                         </div>
                                                     </div>
