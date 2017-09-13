@@ -41,7 +41,6 @@ export class AdminPanelProjectsComponent implements OnInit {
             technologies: []
         };
         this.editingProject(this.projectActive, this.storageService.projectsClone.length);
-        
     }
 
     public editingProject(project, i) {

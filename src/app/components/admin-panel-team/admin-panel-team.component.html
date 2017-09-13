@@ -10,33 +10,31 @@
         </button>
     </div>
 </div>
-<div class="table-responsive" *ngIf="storageService.team.length">
+<div class="table-responsive" *ngIf="storageService.teamClone.length">
     <table class="table table-striped">
         <thead>
         <tr>
             <th>№</th>
             <th>FirstName</th>
             <th>LastName</th>
-            <th>Sity</th>
             <th>Editing</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let employee of storageService.team; let i = index">
+        <tr *ngFor="let employee of storageService.teamClone; let i = index">
             <td>{{i+1}}</td>
             <td>{{employee.firstName}}</td>
             <td>{{employee.lastName}}</td>
-            <td>{{employee.sity}}</td>
             <td>
                 <div class="btn-toolbar">
                     <div class="btn-group">
                         <button type="button" class="btn btn-secondary" title="Editing" data-toggle="modal"
                                 data-target="#employee"
-                                (click)="editingEmployee(employee)">
+                                (click)="editingEmployee(employee, i)">
                             Editing
                         </button>
                         <button type="button" class="btn btn-secondary text-danger" title="Delite"
-                                (click)="delEmployee(employee)">
+                                (click)="delEmployee(i)">
                             <i class="fa fa-trash"></i>
                         </button>
                     </div>
@@ -51,13 +49,13 @@
 
 <!--Start modal window TEAM-->
 <div class="modal fade" id="employee" tabindex="-1" role="dialog">
-    <div *ngIf="employeeClone" class="modal-dialog modal-md" role="document">
+    <div *ngIf="employeeActive" class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="undoModalWindows()">
                     <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-center" id="exampleModalLabel">Editing {{employeeClone.firstName}}
-                    {{employeeClone.lastName}}</h4>
+                <h4 class="modal-title text-center" id="exampleModalLabel">Editing {{employeeActive.firstName}}
+                    {{employeeActive.lastName}}</h4>
             </div>
             <div class="modal-body">
                 <div class="tabs">
@@ -72,7 +70,7 @@
                                     <div class="row big-edit-employee">
                                         <div class="col-xs-3">
                                             <label for="image" class="label-img form-group" id="basic-addon5">
-                                                <img *ngIf="employeeClone.image" id="employee-img" [src]="employeeClone.image">
+                                                <img *ngIf="employeeActive.image" id="employee-img" [src]="employeeActive.image">
                                             </label>
                                             <input id="image" type="file" (change)="getFileName($event)">
                                         </div>
@@ -81,7 +79,7 @@
                                                 <div class="input-group">
                                                     <label for="firstName" class="input-group-addon">First name</label>
                                                     <input name="firstName" id="firstName" type="text" class="form-control"
-                                                           placeholder="First name" [(ngModel)]="employeeClone.firstName">
+                                                           placeholder="First name" [(ngModel)]="employeeActive.firstName">
                                                 </div>
                                             </div>
                                         </div>
@@ -90,7 +88,7 @@
                                                 <div class="input-group">
                                                     <label for="lastName" class="input-group-addon">First name</label>
                                                     <input name="lastName" id="lastName" type="text" class="form-control"
-                                                           placeholder="Last name" [(ngModel)]="employeeClone.lastName">
+                                                           placeholder="Last name" [(ngModel)]="employeeActive.lastName">
                                                 </div>
                                             </div>
                                         </div>
@@ -98,22 +96,22 @@
                                     <div class="little-edit-employee">
                                         <div class="form-group">
                                             <label for="image">
-                                                <img *ngIf="employeeClone.image" class="img-responsive img-whp"
-                                                     [src]="employeeClone.image">
+                                                <img *ngIf="employeeActive.image" class="img-responsive img-whp"
+                                                     [src]="employeeActive.image">
                                             </label>
                                         </div>
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <label for="firstName2" class="input-group-addon">First name</label>
                                                 <input name="firstName" id="firstName2" type="text" class="form-control"
-                                                       placeholder="First name" [(ngModel)]="employeeClone.firstName">
+                                                       placeholder="First name" [(ngModel)]="employeeActive.firstName">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <label for="lastName2" class="input-group-addon">First name</label>
                                                 <input name="lastName" id="lastName2" type="text" class="form-control"
-                                                       placeholder="Last name" [(ngModel)]="employeeClone.lastName">
+                                                       placeholder="Last name" [(ngModel)]="employeeActive.lastName">
                                             </div>
                                         </div>
                                     </div>
@@ -121,14 +119,14 @@
                                         <div class="input-group">
                                             <label for="sity" class="input-group-addon">Sity</label>
                                             <input name="sity" id="sity" type="text" class="form-control"
-                                                   placeholder="Sity" [(ngModel)]="employeeClone.sity">
+                                                   placeholder="Sity" [(ngModel)]="employeeActive.sity">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <label for="position" class="input-group-addon">Position</label>
                                             <input name="position" id="position" type="text" class="form-control"
-                                                   placeholder="Position" [(ngModel)]="employeeClone.position">
+                                                   placeholder="Position" [(ngModel)]="employeeActive.position">
                                         </div>
                                     </div>
                                 </form>
@@ -151,7 +149,7 @@
                                                            placeholder="Experience" [(ngModel)]="technology.experience">
                                                 </div>
                                                 <div class="caption text-center">
-                                                    <button class="btn btn-success" title="Delite" (click)="delTechnology(technology)"><i class="fa fa-trash"></i></button>
+                                                    <button class="btn btn-success" title="Delite" (click)="delTechnology(technology, i)"><i class="fa fa-trash"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -166,11 +164,11 @@
                                             <div class="panel-collapse collapse" id="technology-1">
                                                 <div class="panel-body">
                                                     <div class="row">
-                                                        <div *ngFor="let technology of technologies"
+                                                        <div *ngFor="let technology of technologies; let i = index"
                                                              class="col-xs-6 col-sm-4 col-md-3 form-group text-center">
                                                             <a class="cursor-pointer">
                                                                 <img [src]="technology.ico" alt="{{technology.name}}"
-                                                                     title="{{technology.name}}" (click)="addTechnologyProject(technology)">
+                                                                     title="{{technology.name}}" (click)="addTechnologyProject(technology, i)">
                                                             </a>
                                                         </div>
                                                     </div>

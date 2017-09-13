@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Rx';
 export class StorageService {
     public teamObservable: Observable<any>;
     public team = [];
+    public teamClone = [];
     public specializations = [];
     public specializationsClone = [];
     public projects = [];
@@ -24,6 +25,7 @@ export class StorageService {
         this.teamObservable = this.requestsService.getTeamJson();
         this.teamObservable.subscribe((data: any) => {
             this.team = data;
+            this.teamClone = JSON.parse(JSON.stringify(this.team));
         });
     }
     public getSpecializations() {

@@ -9,9 +9,8 @@ import {RequestsService} from '../../services/requests.service';
     styleUrls: ['./admin-panel-team.component.scss']
 })
 export class AdminPanelTeamComponent implements OnInit {
-    public employeeClone = null;
-    public activeEmployee;
-    public specializationEmployee;
+    public employeeActive;
+    public keyActive;
 
     public technologiesEmployee = []; // Technologies used in the employee
     public technologies = []; // Technologies not used in the employee
@@ -24,12 +23,24 @@ export class AdminPanelTeamComponent implements OnInit {
         public domSanitizer: DomSanitizer
     ) {}
 
-    ngOnInit() {
+    ngOnInit() {}
+
+    public addEmployee() {
+        this.employeeActive = [];
+        const employeeActive = {
+            firstName: '',
+            lastName: '',
+            sity: '',
+            image: '',
+            position: '',
+            technologies: []
+        };
+        this.editingEmployee(employeeActive, this.storageService.teamClone.length);
     }
 
-    public editingEmployee(employee) {
-        this.employeeClone = JSON.parse(JSON.stringify(employee));
-        this.activeEmployee = JSON.parse(JSON.stringify(employee));
+    public editingEmployee(employee, i) {
+        this.keyActive = i;
+        this.employeeActive = JSON.parse(JSON.stringify(employee));
         this.createTechnologiesArrays(employee);
     }
 
@@ -70,9 +81,29 @@ export class AdminPanelTeamComponent implements OnInit {
         }
     }
 
+    public delEmployee(key) {
+        this.storageService.teamClone.splice(key, 1);
+        this.storageService.team = JSON.parse(JSON.stringify(this.storageService.teamClone));
+    }
+
+    public undoModalWindows() {
+        this.storageService.teamClone = JSON.parse(JSON.stringify(this.storageService.team));
+    }
+
     public getFileName(event) {
         let file = event.target.files[0];
-        this.employeeClone.image = this.domSanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
+        this.employeeActive.image = this.domSanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file));
+    }
+
+    public delTechnology(technology, key) {
+        this.technologiesEmployee.splice(key, 1);
+        technology.experience = '';
+        this.technologies.push(technology);
+    }
+
+    public addTechnologyProject(technology, key) {
+        this.technologies.splice(key, 1);
+        this.technologiesEmployee.push(technology);
     }
 
     public textDropDownListNamesTechnologies() {
@@ -82,37 +113,12 @@ export class AdminPanelTeamComponent implements OnInit {
             this.textDropDownListTechnologies = 'Click for select technology';
         }
     }
-
-    public delTechnology(delTechnology) {
-        const mass = [];
-        for (const technology of this.technologiesEmployee) {
-            if (technology !== delTechnology) {
-                mass.push(technology);
-            }
-        }
-        this.technologiesEmployee = mass;
-        delTechnology.experience = '';
-        this.technologies.push(delTechnology);
-    }
-
-    public addTechnologyProject(addTechnology) {
-        const mass = [];
-        for (const technology of this.technologies) {
-            if (technology !== addTechnology) {
-                mass.push(technology);
-            }
-        }
-        this.technologies = mass;
-        this.technologiesEmployee.push(addTechnology);
-    }
     
     public saveChanges() {
         const specializations = [];
         for (const specialization of this.technologiesEmployee) {
             for (const technology of this.storageService.specializations) {
                 if (specialization.name === technology.name) {
-                    console.log(specialization.name);
-                    console.log(technology.name);
                     specializations.push({
                         id: technology.id,
                         experience: specialization.experience
@@ -120,37 +126,12 @@ export class AdminPanelTeamComponent implements OnInit {
                 }
             }
         }
-        this.employeeClone.technologies = specializations;
-        console.log(this.employeeClone);
-        for (const employee in this.storageService.team) {
-            if(this.storageService.team[employee].id === this.activeEmployee.id) {
-                this.storageService.team[employee] = this.employeeClone;
-                break;
-            }
-        }
-        this.requestsService.postSaveEditEmployee('team', this.storageService.team);
-    }
+        this.employeeActive.technologies = specializations;
 
-    public addEmployee() {
-        const newEmploee = {
-            firstName: '',
-            lastName: '',
-            sity: '',
-            image: '',
-            position: '',
-            technologies: []
-        };
-        this.storageService.team.push(newEmploee);
-        this.editingEmployee(newEmploee);
-    }
-    public delEmployee(employeeDel) {
-        const mass = [];
-        for (const employee of this.storageService.team) {
-            if(employee !== employeeDel) {
-                mass.push(employee);
-            }
-        }
-        this.storageService.team = mass;
+        this.storageService.teamClone.splice(this.keyActive, 1, this.employeeActive);
+        this.storageService.team = JSON.parse(JSON.stringify(this.storageService.teamClone));
+
+        this.requestsService.postSaveEditEmployee('team', this.storageService.team);
     }
 
 }
