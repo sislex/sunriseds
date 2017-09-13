@@ -7,6 +7,7 @@ export class StorageService {
     public teamObservable: Observable<any>;
     public team = [];
     public specializations = [];
+    public specializationsClone = [];
     public projects = [];
     public contacts = [];
     public contactsClone = [];
@@ -28,6 +29,7 @@ export class StorageService {
         this.teamObservable = this.requestsService.getSpecializationsJson();
         this.teamObservable.subscribe((data: any) => {
             this.specializations = data;
+            this.specializationsClone = JSON.parse(JSON.stringify(this.specializations));
         });
     }
     public getProjects() {

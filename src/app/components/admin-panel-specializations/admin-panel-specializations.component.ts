@@ -7,52 +7,48 @@ import {StorageService} from '../../services/storage.service';
     styleUrls: ['./admin-panel-specializations.component.scss']
 })
 export class AdminPanelSpecializationsComponent implements OnInit {
-    public specializationClone = null;
-    public activeSpecialization;
+    public specializationActive;
+    public keyActive;
 
-    constructor(private storageService: StorageService) {
-    }
+    constructor(private storageService: StorageService) {}
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
-    public editingSpecialization(specialization) {
-        this.specializationClone = JSON.parse(JSON.stringify(specialization));
-        this.activeSpecialization = JSON.parse(JSON.stringify(specialization));
-    }
-
-    public saveChangesSpecialization() {
-        if (this.specializationClone.name !== '') {
-            for (const specialization in this.storageService.specializations) {
-                if(this.storageService.specializations[specialization].name === this.activeSpecialization.name) {
-                    this.storageService.specializations[specialization] = this.specializationClone;
-                    break;
-                }
-            }
-        } else {
-            this.storageService.specializations.pop();
-        }
-    }
     public addSpecialization() {
-        const newSpecialization = {
-            id: parseInt(this.storageService.specializations[this.storageService.specializations.length - 1].id) + 1,
+        this.specializationActive = [];
+        let id: number;
+        if (this.storageService.specializationsClone.length) {
+            id = parseInt(this.storageService.specializationsClone[this.storageService.specializationsClone.length - 1].id) + 1;
+        } else {
+            id = 1;
+        }
+        this.specializationActive = {
+            id: id,
             name: '',
             ico: '',
             color: '',
             display: false
         };
-        this.storageService.specializations.push(newSpecialization);
-        this.editingSpecialization(newSpecialization);
-    }
-    public delSpecialization(specializationDel) {
-        const mass = [];
-        for (const specialization of this.storageService.specializations) {
-            if(specialization !== specializationDel) {
-                mass.push(specialization);
-            }
-        }
-        this.storageService.specializations = mass;
+        this.editingSpecialization(this.specializationActive, this.storageService.specializationsClone.length);
     }
 
+    public editingSpecialization(specialization, i) {
+        this.keyActive = i;
+        this.specializationActive = JSON.parse(JSON.stringify(specialization));
+    }
+
+    public delSpecialization(key) {
+        this.storageService.specializationsClone.splice(key, 1);
+        this.storageService.specializations = JSON.parse(JSON.stringify(this.storageService.specializationsClone));
+    }
+
+    public undoModalWindows() {
+        this.storageService.specializationsClone = JSON.parse(JSON.stringify(this.storageService.specializations));
+    }
+
+    public saveChanges() {
+        this.storageService.specializationsClone.splice(this.keyActive, 1, this.specializationActive);
+        this.storageService.specializations = JSON.parse(JSON.stringify(this.storageService.specializationsClone));
+    }
 
 }
