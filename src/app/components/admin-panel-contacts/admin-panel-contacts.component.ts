@@ -41,6 +41,7 @@ export class AdminPanelContactsComponent implements OnInit {
     public delContact(key) {
         this.storageService.contactsClone.splice(key, 1);
         this.storageService.contacts = JSON.parse(JSON.stringify(this.storageService.contactsClone));
+        this.storageService.postSaveEditJSON('contacts', this.storageService.contacts);
     }
     
     public undoModalWindows() {
@@ -60,6 +61,8 @@ export class AdminPanelContactsComponent implements OnInit {
     public saveChanges() {
         this.storageService.contactsClone.splice(this.keyActive, 1, this.contactActive);
         this.storageService.contacts = JSON.parse(JSON.stringify(this.storageService.contactsClone));
+
+        this.storageService.postSaveEditJSON('contacts', this.storageService.contacts);
     }
 
 }

@@ -60,4 +60,7 @@ export class StorageService {
         });
     }
     
+    public postSaveEditJSON(type, data) {
+        this.requestsService.postSaveEditJSON(type, data);
+    }
 }

@@ -40,6 +40,7 @@ export class AdminPanelSpecializationsComponent implements OnInit {
     public delSpecialization(key) {
         this.storageService.specializationsClone.splice(key, 1);
         this.storageService.specializations = JSON.parse(JSON.stringify(this.storageService.specializationsClone));
+        this.storageService.postSaveEditJSON('specializations', this.storageService.specializations);
     }
 
     public undoModalWindows() {
@@ -49,6 +50,8 @@ export class AdminPanelSpecializationsComponent implements OnInit {
     public saveChanges() {
         this.storageService.specializationsClone.splice(this.keyActive, 1, this.specializationActive);
         this.storageService.specializations = JSON.parse(JSON.stringify(this.storageService.specializationsClone));
+
+        this.storageService.postSaveEditJSON('specializations', this.storageService.specializations);
     }
 
 }

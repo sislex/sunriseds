@@ -18,6 +18,8 @@ export class AdminPanelAboutComponent implements OnInit {
 
     public saveChanges() {
         this.storageService.about = JSON.parse(JSON.stringify(this.storageService.aboutClone));
+
+        this.storageService.postSaveEditJSON('about', this.storageService.about);
     }
 
 }

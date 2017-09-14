@@ -108,6 +108,7 @@ export class AdminPanelProjectsComponent implements OnInit {
     public delProject(key) {
         this.storageService.projectsClone.splice(key, 1);
         this.storageService.projects = JSON.parse(JSON.stringify(this.storageService.projectsClone));
+        this.storageService.postSaveEditJSON('projects', this.storageService.projects);
     }
 
     public undoModalWindows() {
@@ -170,6 +171,8 @@ export class AdminPanelProjectsComponent implements OnInit {
         this.projectActive.technologies = mass;
         this.storageService.projectsClone.splice(this.keyActive, 1, this.projectActive);
         this.storageService.projects = JSON.parse(JSON.stringify(this.storageService.projectsClone));
+
+        this.storageService.postSaveEditJSON('projects', this.storageService.projects);
     }
 
 }

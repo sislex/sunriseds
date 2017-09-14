@@ -84,6 +84,7 @@ export class AdminPanelTeamComponent implements OnInit {
     public delEmployee(key) {
         this.storageService.teamClone.splice(key, 1);
         this.storageService.team = JSON.parse(JSON.stringify(this.storageService.teamClone));
+        this.storageService.postSaveEditJSON('team', this.storageService.team);
     }
 
     public undoModalWindows() {
@@ -131,7 +132,7 @@ export class AdminPanelTeamComponent implements OnInit {
         this.storageService.teamClone.splice(this.keyActive, 1, this.employeeActive);
         this.storageService.team = JSON.parse(JSON.stringify(this.storageService.teamClone));
 
-        this.requestsService.postSaveEditEmployee('team', this.storageService.team);
+        this.storageService.postSaveEditJSON('team', this.storageService.team);
     }
 
 }

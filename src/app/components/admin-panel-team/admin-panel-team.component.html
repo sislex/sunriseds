@@ -149,7 +149,9 @@
                                                            placeholder="Experience" [(ngModel)]="technology.experience">
                                                 </div>
                                                 <div class="caption text-center">
-                                                    <button class="btn btn-success" title="Delite" (click)="delTechnology(technology, i)"><i class="fa fa-trash"></i></button>
+                                                    <button class="btn btn-success" title="Delite" (click)="delTechnology(technology, i)">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -158,7 +160,10 @@
                                         <div class="panel panel-success">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title text-center">
-                                                    <a id="textDropDownListName" href="#technology-1" data-parent="#technologies" data-toggle="collapse" (click)="textDropDownListNamesTechnologies()">{{textDropDownListTechnologies}}</a>
+                                                    <a id="textDropDownListName" href="#technology-1" data-parent="#technologies"
+                                                       data-toggle="collapse" (click)="textDropDownListNamesTechnologies()">
+                                                        {{textDropDownListTechnologies}}
+                                                    </a>
                                                 </h4>
                                             </div>
                                             <div class="panel-collapse collapse" id="technology-1">
