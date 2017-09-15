@@ -5,6 +5,10 @@ import {Observable} from 'rxjs/Rx';
 @Injectable()
 export class StorageService {
     public teamObservable: Observable<any>;
+    public specializationsObservable: Observable<any>;
+    public projectsObservable: Observable<any>;
+    public contactsObservable: Observable<any>;
+    public aboutObservable: Observable<any>;
     public team = [];
     public teamClone = [];
     public specializations = [];
@@ -33,22 +37,22 @@ export class StorageService {
         });
     }
     public getSpecializations() {
-        this.teamObservable = this.requestsService.getSpecializationsJson();
-        this.teamObservable.subscribe((data: any) => {
+        this.specializationsObservable = this.requestsService.getSpecializationsJson();
+        this.specializationsObservable.subscribe((data: any) => {
             this.specializations = data;
             this.specializationsClone = JSON.parse(JSON.stringify(this.specializations));
         });
     }
     public getProjects() {
-        this.teamObservable = this.requestsService.getProjectsJson();
-        this.teamObservable.subscribe((data: any) => {
+        this.projectsObservable = this.requestsService.getProjectsJson();
+        this.projectsObservable.subscribe((data: any) => {
             this.projects = data;
             this.projectsClone = JSON.parse(JSON.stringify(this.projects));
         });
     }
     public getContacts() {
-        this.teamObservable = this.requestsService.getContactsJson();
-        this.teamObservable.subscribe((data: any) => {
+        this.contactsObservable = this.requestsService.getContactsJson();
+        this.contactsObservable.subscribe((data: any) => {
             this.contacts = data;
             this.contactsClone = JSON.parse(JSON.stringify(this.contacts));
         });
@@ -61,8 +65,8 @@ export class StorageService {
     }
     
     public getAbout() {
-        this.teamObservable = this.requestsService.getAboutJson();
-        this.teamObservable.subscribe((data: any) => {
+        this.aboutObservable = this.requestsService.getAboutJson();
+        this.aboutObservable.subscribe((data: any) => {
             this.about = data;
             this.aboutClone = JSON.parse(JSON.stringify(this.about));
         });

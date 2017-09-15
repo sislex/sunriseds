@@ -28,7 +28,6 @@ export class TeamDetailsComponent implements OnInit {
     private filter(id) {
         this.storageService.teamObservable.subscribe((data) => {
             this.activeEmployee = data.find((item) => item.id === id);
-            console.log(this.storageService.team);
         });
     }
 

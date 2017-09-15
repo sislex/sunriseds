@@ -3,36 +3,38 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class RequestsService {
+    // private adress = 'http://sunrisapi/';//Local
+    private adress = 'http://sunsite.datadizz.com/storage/';//Prodaction
 
     constructor(private httpClient:HttpClient) {
     }
 
     public getUsersJson() {
-        return this.httpClient.get('http://sunrisapi/?type=users&action=get');
+        return this.httpClient.get(this.adress + '?type=users&action=get');
     }
 
     public getTeamJson() {
-        return this.httpClient.get('http://sunrisapi/?type=team&action=get');
+        return this.httpClient.get(this.adress + '?type=team&action=get');
     }
 
     public getSpecializationsJson() {
-        return this.httpClient.get('http://sunrisapi/?type=specializations&action=get');
+        return this.httpClient.get(this.adress + '?type=specializations&action=get');
     }
 
     public getProjectsJson() {
-        return this.httpClient.get('http://sunrisapi/?type=projects&action=get');
+        return this.httpClient.get(this.adress + '?type=projects&action=get');
     }
 
     public getContactsJson() {
-        return this.httpClient.get('http://sunrisapi/?type=contacts&action=get');
+        return this.httpClient.get(this.adress + '?type=contacts&action=get');
     }
 
     public getAboutJson() {
-        return this.httpClient.get('http://sunrisapi/?type=about&action=get');
+        return this.httpClient.get(this.adress + '?type=about&action=get');
     }
     
     public postSaveEditJSON(type, data) {
-        const url:string = 'http://sunrisapi/';
+        const url:string = this.adress;
         const headers = new HttpHeaders()
             .set('Content-Type', 'application/json');
 
@@ -51,7 +53,7 @@ export class RequestsService {
 
 
     public postSaveEditImage(type, data) {
-        const url = 'http://sunrisapi/';
+        const url = this.adress;
             const headers = new HttpHeaders()
                 .set('Content-Type', 'multipart/form-data');
 

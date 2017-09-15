@@ -10,25 +10,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-6">
-        <img src="assets/images/about2.jpg" alt="about2.jpg">
-        <h3>Our Mision</h3>
-        <p>Consectetur adipisicing elit. Aliquam totam cupiditate iste doloribus, unde minima vero quidem. Porro, laborum obcaecati architecto ex nostrum doloremque magni. Culpa sunt, incidunt eos atque officia harum impedit asperiores tempora, quam amet quaerat.</p>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-6">
-        <img src="assets/images/about3.jpg" alt="about3.jpg">
-        <h3>Our Vision</h3>
-        <p>Consectetur adipisicing elit. Vero laboriosam aperiam quasi nihil, obcaecati ducimus accusantium corporis deserunt neque, adipisci consequatur repellat natus, veritatis, sed! Ipsam repellendus molestiae quaerat quia officiis neque. Necessitatibus facilis ex suscipit commodi reprehenderit.</p>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-6">
-        <img src="assets/images/about2.jpg" alt="about2.jpg">
-        <h3>Our Mision</h3>
-        <p>Consectetur adipisicing elit. Aliquam totam cupiditate iste doloribus, unde minima vero quidem. Porro, laborum obcaecati architecto ex nostrum doloremque magni. Culpa sunt, incidunt eos atque officia harum impedit asperiores tempora, quam amet quaerat.</p>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-6">
-        <img src="assets/images/about3.jpg" alt="about3.jpg">
-        <h3>Our Vision</h3>
-        <p>Consectetur adipisicing elit. Vero laboriosam aperiam quasi nihil, obcaecati ducimus accusantium corporis deserunt neque, adipisci consequatur repellat natus, veritatis, sed! Ipsam repellendus molestiae quaerat quia officiis neque. Necessitatibus facilis ex suscipit commodi reprehenderit.</p>
+      <div *ngFor="let project of storageService.projects" class="col-xs-12 col-sm-6 col-md-6">
+        <img src={{project.images[0]}} alt="about2.jpg">
+        <h3>{{project.name}}</h3>
+        <p>{{project.description}}</p>
       </div>
     </div>
   </div>
