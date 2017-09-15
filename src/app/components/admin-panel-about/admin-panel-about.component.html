@@ -33,19 +33,24 @@
                     <div class="form-group border">
                         <label class="form-control text-center">Images about</label>
                         <div class="row">
-                            <div *ngFor="let img of about.images" class="col-xs-6 col-sm-4 col-md-3">
+                            <div *ngFor="let img of about.images; let i = index" class="col-xs-6 col-sm-4 col-md-3">
                                 <div class="thumbnail">
-                                    <img [src]="img" alt="{{img}}" title="{{img}}">
+                                    <img [src]="img.src" alt="{{img.name}}" title="{{img.name}}">
                                     <div class="caption text-center">
                                         <button class="btn btn-success">Edit</button>
-                                        <button class="btn btn-success">Remove</button>
+                                        <button class="btn btn-success" (click)="delImg(about, i)"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-4 col-md-3">
                                 <div class="thumbnail">
-                                    <img class="btn" src="assets/images/projects/plus.jpg" alt="Add image"
-                                         title="Add an image">
+                                    <label for="image">
+                                        <img class="btn" src="assets/images/projects/plus.jpg" alt="Add image"
+                                             title="Add an image">
+                                    </label>
+                                    <!--<input id="image" type="file">-->
+                                    <input id="image" type="file" (change)="addImage($event, about)">
+                                    <!--<input id="image" type="file" (change)="addImage(files[0])">-->
                                 </div>
                             </div>
                         </div>

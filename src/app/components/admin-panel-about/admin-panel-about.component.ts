@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from '../../services/storage.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-admin-panel-about',
@@ -8,18 +9,40 @@ import {StorageService} from '../../services/storage.service';
 })
 export class AdminPanelAboutComponent implements OnInit {
 
-    constructor( private storageService: StorageService ) {}
+    constructor(
+        private storageService: StorageService,
+        private domSanitizer: DomSanitizer
+    ) {}
 
     ngOnInit() {}
+
+    public delImg(about, key) {
+        console.log(about.images);
+        about.images.splice(key, 1);
+        this.storageService.aboutImages.splice(key, 1);
+        console.log(this.storageService.aboutImages);
+    }
+
+    public addImage(event, about) {
+        const file = event.target.files[0];
+        // console.log(file);
+        about.images.push(
+            {
+                flagObj: true,
+                obj: file,
+                name: file.name,
+                src: this.domSanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file))
+            }
+        );
+    }
 
     public cancelChanges() {
         this.storageService.aboutClone = JSON.parse(JSON.stringify(this.storageService.about));
     }
 
     public saveChanges() {
-        this.storageService.about = JSON.parse(JSON.stringify(this.storageService.aboutClone));
-
-        this.storageService.postSaveEditJSON('about', this.storageService.about);
+        console.log(this.storageService.aboutClone);
+        this.storageService.saveChanges();
     }
 
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Injectable()
 export class RequestsService {
@@ -48,5 +48,22 @@ export class RequestsService {
                 }
             );
     }
+
+
+    public postSaveEditImage(type, data) {
+        const url = 'http://sunrisapi/';
+            const headers = new HttpHeaders()
+                .set('Content-Type', 'multipart/form-data');
+
+            const params = new HttpParams()
+                .set('type', type);
+
+            const body = {
+                // id: id,
+                // data: layer
+            };
+
+            // return this.http.post(url, body, { headers, params });
+        }
 
 }

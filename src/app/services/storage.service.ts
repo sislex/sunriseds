@@ -15,6 +15,7 @@ export class StorageService {
     public contactsClone = [];
     public about = [];
     public aboutClone = [];
+    public aboutImages = [];
 
     constructor(private requestsService: RequestsService) {
         this.getTeam();
@@ -52,6 +53,13 @@ export class StorageService {
             this.contactsClone = JSON.parse(JSON.stringify(this.contacts));
         });
     }
+    
+    public saveChanges() {
+        // this.requestsService.postSaveEditImage();
+        this.about = JSON.parse(JSON.stringify(this.aboutClone));
+        this.postSaveEditJSON('about', this.about);
+    }
+    
     public getAbout() {
         this.teamObservable = this.requestsService.getAboutJson();
         this.teamObservable.subscribe((data: any) => {
