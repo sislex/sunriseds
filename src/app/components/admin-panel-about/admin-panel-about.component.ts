@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from '../../services/storage.service';
 import {DomSanitizer} from '@angular/platform-browser';
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+
+const URL = 'http://localhost/sunrisapi/upload.php';
 
 @Component({
     selector: 'app-admin-panel-about',
@@ -8,6 +11,8 @@ import {DomSanitizer} from '@angular/platform-browser';
     styleUrls: ['./admin-panel-about.component.scss']
 })
 export class AdminPanelAboutComponent implements OnInit {
+
+    public uploader:FileUploader = new FileUploader({url: URL});
 
     constructor(
         private storageService: StorageService,

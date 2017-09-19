@@ -8,11 +8,13 @@ import {AdminPanelSpecializationsComponent} from '../components/admin-panel-spec
 import {AdminPanelProjectsComponent} from '../components/admin-panel-projects/admin-panel-projects.component';
 import {AdminPanelContactsComponent} from '../components/admin-panel-contacts/admin-panel-contacts.component';
 import {AdminPanelAboutComponent} from '../components/admin-panel-about/admin-panel-about.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
     imports: [
         CommonModule,
         AdminRoutingModule,
+        FileUploadModule,
         FormsModule
     ],
     declarations: [
